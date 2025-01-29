@@ -1,19 +1,6 @@
 import bcrypt
-User_data=[{
-    "name":"carlo",
-    "email":"carlo@gmail.com",
-    "password":"$2b$12$/KM73Xc9sL4HaJ10KNhJ7eLgmCIuwh/qwqlgYyF0PG64qMdndk44G"
-},
-{
-    "name":"marco",
-    "email":"marco@gmail.com",
-    "password":"$2b$12$v41q6yukV9C5ct5Jwr2Pb.PPGxkUsUpdXNWpII0livFbi9HNmH51u"
-},
-{
-    "name":"john wick",
-    "email":"john@gmail.com",
-    "password":"$2b$12$v41q6yukV9C5ct5Jwr2Pb.PPGxkUsUpdXNWpII0livFbi9HNmH51u"
-}]
+import json
+User_data=json.load(open("userapi.json",'rt'))
 class  UserManager:
     def __init__(self,username,email,password):
         self.username=username
@@ -24,7 +11,7 @@ class  UserManager:
         print(f'Login uername:{self.username},email:{self.email},pass:{self.__password}')
         hash_pass=self.__password.encode("utf-8")
         for data in User_data:
-            if data["email"]==self.email and bcrypt.checkpw(hash_pass,data["password"]):
+            if data["email"]==self.email and bcrypt.checkpw(hash_pass,data["password"].encode()):
                 return  {"status": "sucess","term":True}
         print(b"can't find email")
         return  {"status": "can't find email","term":False}
@@ -36,7 +23,7 @@ class  UserManager:
         checkdata={
             "name":self.username,
             "email":self.email,
-            "password":Bcrypt_pass
+            "password":Bcrypt_pass.decode()
             }
         print(Bcrypt_pass)
         for data in User_data:
@@ -44,7 +31,13 @@ class  UserManager:
                 print('email exited')
                 return  {"status": "email exited","term":False}
         User_data.append(checkdata)
+        self.dataAppend(data)
         print("usedata stored")
         return  {"status": "data stored","term":True}
+    def dataAppend(self,data):
+        print(data)
+        file=open('userapi.json', 'w')
+        # with open('userapi.json', 'w') as file:
+        json.dump(User_data, file, indent=4)
 
     
