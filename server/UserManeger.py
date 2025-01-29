@@ -31,13 +31,13 @@ class  UserManager:
                 print('email exited')
                 return  {"status": "email exited","term":False}
         User_data.append(checkdata)
-        self.dataAppend(data)
+        self.dataAppend(User_data)
         print("usedata stored")
         return  {"status": "data stored","term":True}
     def dataAppend(self,data):
         print(data)
         file=open('userapi.json', 'w')
         # with open('userapi.json', 'w') as file:
-        json.dump(User_data, file, indent=4)
+        json.dump(data, file, indent=4)
 
     

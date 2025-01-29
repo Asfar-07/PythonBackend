@@ -1,7 +1,5 @@
 import http.server
 import socketserver
-from urllib.parse import parse_qs
-from pathlib import Path
 import json
 from UserManeger import UserManager
 

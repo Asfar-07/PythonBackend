@@ -13,10 +13,5 @@
         "name": "john wick",
         "email": "john@gmail.com",
         "password": "$2b$12$v41q6yukV9C5ct5Jwr2Pb.PPGxkUsUpdXNWpII0livFbi9HNmH51u"
-    },
-    {
-        "name": "marco",
-        "email": "carlo2@gmail.com",
-        "password": "$2b$12$IhxTx5McbOIsDDjrWzv9XeGogzw6.lEzr6J3LeffBODvyZziaTd6m"
     }
 ]
