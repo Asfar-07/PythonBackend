@@ -13,5 +13,10 @@
         "name": "john wick",
         "email": "john@gmail.com",
         "password": "$2b$12$v41q6yukV9C5ct5Jwr2Pb.PPGxkUsUpdXNWpII0livFbi9HNmH51u"
+    },
+    {
+        "name": "marco",
+        "email": "carlo2@gmail.com",
+        "password": "$2b$12$zgkRnNpjim5N7RnO2hqcLOtlhQt49y0E5k/C2xYv.rm.WRxoGZEFW"
     }
 ]

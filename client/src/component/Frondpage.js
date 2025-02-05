@@ -11,8 +11,7 @@ export default function Frondpage() {
       <Container className="bg-warning mw-100 pt-2" style={{ height: "100vh" }}>
         <main>
           <h1 className="m-4">
-            This is Python client side without using <br></br>any backend side
-            framework
+          This is a Python client-side application without using any backend framework.
           </h1>
           <p>react with bootstrap</p>
           {/* <Container>

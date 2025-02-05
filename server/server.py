@@ -4,7 +4,6 @@ import json
 from UserManeger import UserManager
 
 PORT = 8000  
-user_data=[]
 class MyRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_OPTIONS(self):
         self.send_response(200)
@@ -12,6 +11,14 @@ class MyRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
+    def do_GET(self):
+        request_path=self.path
+        self.send_response(200)
+        self.send_header("Content-Type","application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        response=json.load(open("userapi.json","rt"))
+        self.wfile.write(json.dumps(response).encode())
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)

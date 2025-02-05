@@ -1,6 +1,10 @@
 import bcrypt
 import json
-User_data=json.load(open("userapi.json",'rt'))
+import db
+
+Connection_db=db.DataBase()
+User_Table=Connection_db.cursor()
+print(Connection_db)
 class  UserManager:
     def __init__(self,username,email,password):
         self.username=username
@@ -10,8 +14,16 @@ class  UserManager:
     def UserLogin(self):
         print(f'Login uername:{self.username},email:{self.email},pass:{self.__password}')
         hash_pass=self.__password.encode("utf-8")
-        for data in User_data:
-            if data["email"]==self.email and bcrypt.checkpw(hash_pass,data["password"].encode()):
+        User_Table.execute("select * from userdetails.ur_data where email=%s",(self.email,))
+        User_data=User_Table.fetchone()  #fetch data from database in tuble structure
+        if User_data:
+            checkdata={                  #convert to dictionary or json
+            "name":User_data[1],
+            "email":User_data[2],
+            "password":User_data[3]
+            }
+            print("email finded")
+            if checkdata["email"]==self.email and bcrypt.checkpw(hash_pass,checkdata["password"].encode()):
                 return  {"status": "sucess","term":True}
         print(b"can't find email")
         return  {"status": "can't find email","term":False}
@@ -25,19 +37,16 @@ class  UserManager:
             "email":self.email,
             "password":Bcrypt_pass.decode()
             }
-        print(Bcrypt_pass)
-        for data in User_data:
-            if data["email"]==self.email:
-                print('email exited')
-                return  {"status": "email exited","term":False}
-        User_data.append(checkdata)
-        self.dataAppend(User_data)
+        
+        User_Table.execute("select * from userdetails.ur_data where email=%s",(self.email,))
+        User_data=User_Table.fetchone()
+        if User_data:
+            print('email exited')
+            return  {"status": "email exited","term":False}
+        collection_data=(checkdata["name"],checkdata["email"],checkdata["password"])
+        User_Table.execute("insert into userdetails.ur_data(username,email,password) values(%s,%s,%s)",collection_data)
+        Connection_db.commit()
         print("usedata stored")
         return  {"status": "data stored","term":True}
-    def dataAppend(self,data):
-        print(data)
-        file=open('userapi.json', 'w')
-        # with open('userapi.json', 'w') as file:
-        json.dump(data, file, indent=4)
 
     

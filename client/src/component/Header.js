@@ -13,7 +13,7 @@ export default function Header() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setDatalocal());
-  }, []);
+  }, [dispatch]);
   const { user } = useSelector((state) => state.userdata);
   if (user === "null") {
     userstate = true;
@@ -43,6 +43,7 @@ export default function Header() {
               Home
             </Nav.Link>
             <Nav.Link href="About">About</Nav.Link>
+            <Nav.Link href="Account">Account</Nav.Link>
             {userstate ? (
               <Nav.Link href="Login" className="d-flex bg-dark px-4 rounded ">
                 Login
